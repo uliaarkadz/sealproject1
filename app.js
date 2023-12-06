@@ -47,9 +47,9 @@ function getArtObjectsBySearch(parameter, search) {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
-
-      data.objectIDs.forEach((i) => {
+      const arr = data.objectIDs;
+      const slicedArray = arr.slice(0, 10);
+      slicedArray.forEach((i) => {
         return fetch(`${baseURL}objects/${i}`)
           .then((res) => {
             return res.json();
@@ -61,10 +61,22 @@ function getArtObjectsBySearch(parameter, search) {
     });
 }
 
+//get object by Id
+function getArtObjectsById(parameter, id) {
+  const url = `${baseURL}${parameter}/${id}`;
+  fetch(url)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      displayArtObjectFull(data);
+    });
+}
+
 //function to add departments to select
 function addSelectOptions(options) {
   const $departments = $("#departments");
-  const $select = $("<select>");
+  const $select = $("<select><option>Please Select Department</option>");
   $select.on("change", handleSelect);
   $departments.append($select);
   options.forEach((item) => {
@@ -78,31 +90,45 @@ function addSelectOptions(options) {
 //function to display art object by department
 function displayArtObject(options) {
   const $maincontainer = $("#maincontainer");
+  const $header = $("#header div");
+  $header.css("display", "inline");
   const $artObjects = $("<div>").addClass("artObjects");
   $maincontainer.append($artObjects);
   $artObjects.append(
-    `<div class=art id=${options.objectID}>
-    <div> ${options.title}</div>
-    <div>${options.artistDisplayName}</div>
-    <div> <img src='${options.primaryImageSmall}'></div></div>`
+    `<div class=art>
+    <div class=title id=${options.objectID}>${options.title} </div>
+    <div>${options.artistDisplayName} </div>
+    <div>${options.objectBeginDate}</div>
+    <div>Details</div>
+    </div>`
   );
+
+  [...document.querySelectorAll(".title")].forEach(function (item) {
+    item.addEventListener("click", openObjectModal);
+  });
 }
 
 //function to display art object full info
 function displayArtObjectFull(options) {
-  const $maincontainer = $("#maincontainer");
-  const $artObjects = $("<div>").addClass("artObjects");
-  $maincontainer.append($artObjects);
-  $artObjects.append(
-    `<div class=art id=${options.objectID}>
+  const $objectContainer = $("#objectContainer");
+  const $artObject = $("<div>").addClass("artObjectFull");
+  $objectContainer.append($artObject);
+  $artObject.append(
+    `<div class=artwork id=${options.objectID}>
       <div> ${options.title}</div>
       <div>${options.artistDisplayName}</div>
-      <div> <img src='${options.primaryImageSmall}'></div></div>`
+      <div>${options.objectDate}</div>
+      <div><a href =${options.objectURL}/> </div>
+      <div>${options.department}</div>
+      <div> <img src='${options.primaryImageSmall}'></div>
+
+      </div>`
   );
 }
 
 //MAIN CODE
 getDepartments("departments");
+//getArtObjectsById("objects", 436524);
 
 //getArtObjectsBySearch("search", "sunflowers");
 
@@ -113,6 +139,7 @@ function handleSelect(event) {
   //fetch the objects
   getArtIdsByDepartment("objects", currentValue);
 }
+
 // function to handle the form submission
 function handleSubmit(event) {
   //prevent refreshing of the page from the form submision
@@ -124,7 +151,20 @@ function handleSubmit(event) {
   //grab the serach param
   const search = formData.get("search");
   //fetch the search results
-  getArtObjectsBySearch("search", "search");
+  getArtObjectsBySearch("search", search);
+}
+
+//function to handle object display
+function openObjectModal(event) {
+  if ($("#objectContainer").css("display") === "none") {
+    getArtObjectsById("objects", event.target.id);
+    $("#objectContainer").css("display", "inline");
+  } else if ($("#objectContainer").css("display") === "inline") {
+    $(".artObjectFull").remove();
+    $("#objectContainer").css("display", "none");
+    getArtObjectsById("objects", event.target.id);
+    $("#objectContainer").css("display", "inline");
+  }
 }
 
 document.querySelector("form").addEventListener("submit", handleSubmit);
