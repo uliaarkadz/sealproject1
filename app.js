@@ -55,6 +55,7 @@ function getArtObjectsBySearch(parameter, search) {
             return res.json();
           })
           .then((data) => {
+            debugger;
             displayArtObject(data);
           });
       });
@@ -90,10 +91,14 @@ function addSelectOptions(options) {
 //function to display art object by department
 function displayArtObject(options) {
   const $maincontainer = $("#maincontainer");
-  const $header = $("#header div");
-  $header.css("display", "inline");
+  $("#header div").css("display", "inline");
   const $artObjects = $("<div>").addClass("artObjects");
   $maincontainer.append($artObjects);
+  for (var key in options) {
+    if (options[key] == "") {
+      options[key] = "not availabele";
+    }
+  }
   $artObjects.append(
     `<div class=art>
     <div class=title id=${options.objectID}>${options.title} </div>
@@ -113,15 +118,19 @@ function displayArtObjectFull(options) {
   const $objectContainer = $("#objectContainer");
   const $artObject = $("<div>").addClass("artObjectFull");
   $objectContainer.append($artObject);
+  for (var key in options) {
+    if (options[key] == "" || options[key] == null) {
+      options[key] = "not availabele";
+    }
+  }
   $artObject.append(
     `<div class=artwork id=${options.objectID}>
       <div> ${options.title}</div>
       <div>${options.artistDisplayName}</div>
       <div>${options.objectDate}</div>
-      <div><a href =${options.objectURL}/> </div>
+      <div><a href =${options.objectURL} target=_blank/> </div>
       <div>${options.department}</div>
-      <div> <img src='${options.primaryImageSmall}'></div>
-
+      <div> <img src=${options.primaryImageSmall} target=_blank></div>
       </div>`
   );
 }
@@ -135,7 +144,15 @@ getDepartments("departments");
 // function to handle the select
 function handleSelect(event) {
   //get current select values
-  const currentValue = event.target.value;
+  let currentValue;
+  if ($(".artObjects").length == 0) {
+    currentValue = event.target.value;
+  } else {
+    $(".artObjects").remove();
+    $("#header div").css("display", "none");
+    currentValue = event.target.value;
+  }
+
   //fetch the objects
   getArtIdsByDepartment("objects", currentValue);
 }
@@ -167,4 +184,32 @@ function openObjectModal(event) {
   }
 }
 
+function showDepartmentsSelect() {
+  if ($(".artObjects").length == 0) {
+    $("#departments").css("display", "flex");
+    $("#search").css("display", "none");
+  } else {
+    $(".artObjects").remove();
+    $("#departments").css("display", "flex");
+    $("#search").css("display", "none");
+    $("#header div").css("display", "none");
+  }
+}
+
+function showSearchInput() {
+  if ($(".artObjects").length == 0) {
+    $("#search").css("display", "flex");
+    $("#departments").css("display", "none");
+  } else {
+    $(".artObjects").remove();
+    $("#search").css("display", "flex");
+    $("#departments").css("display", "none");
+    $("#header div").css("display", "none");
+  }
+}
+
 document.querySelector("form").addEventListener("submit", handleSubmit);
+document
+  .querySelector("#searchart")
+  .addEventListener("click", showDepartmentsSelect);
+document.querySelector("#find").addEventListener("click", showSearchInput);

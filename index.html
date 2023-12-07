@@ -18,13 +18,13 @@
     </header>
     <main>
       <div id="searchoptions">
-        <div><button>Look up in our Departments</button></div>
-        <div><button>Find Any Art</button></div>
+        <div><button id="searchart">Look up in our Departments</button></div>
+        <div><button id="find">Find Any Art</button></div>
       </div>
       <div class="form">
         <form id="myForm">
-          <div id="departments"></div>
-          <div id="search">
+          <div hidden="true" id="departments"></div>
+          <div hidden id="search">
             <input
               type="text"
               name="search"
@@ -35,7 +35,7 @@
         </form>
         <div id="objectContainer"></div>
         <div id="maincontainer">
-          <div class="artObjects">
+          <div class="artObjectsHeader">
             <div class="art" id="header">
               <div>Title</div>
               <div>Artist Name</div>
