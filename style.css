@@ -1,7 +1,7 @@
 #main {
   display: flex;
   flex-direction: column;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Hedvig Letters Serif", serif;
 }
 
 #top {
@@ -42,6 +42,7 @@ img {
   font-size: 40px;
   border: 3px double red;
   text-transform: uppercase;
+  font-family: "Hedvig Letters Serif", serif;
 }
 
 #search {
@@ -58,6 +59,8 @@ select {
   color: white;
   text-align: center;
   background-color: transparent;
+  font-family: "Hedvig Letters Serif", serif;
+  font-size: larger;
 }
 
 input {
@@ -79,6 +82,8 @@ input {
   text-align: center;
   background-color: red;
   border: 3px double red;
+  font-family: "Hedvig Letters Serif", serif;
+  font-size: larger;
 }
 
 .form {
@@ -93,6 +98,7 @@ input {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  font-size: larger;
 }
 
 .art div {
@@ -165,6 +171,7 @@ button:hover {
   width: 80%;
   align-items: center;
   text-align: center;
+  font-family: "Hedvig Letters Serif", serif;
 }
 
 /* The Close Button */
@@ -256,6 +263,7 @@ button:hover {
     background-color: red;
     border: 3px double red;
     background-color: transparent;
+    font-size: small;
   }
   .maincontainer {
     display: flex;
@@ -266,6 +274,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    font-family: "Hedvig Letters Serif", serif;
   }
   .art {
     width: 100%;
@@ -276,6 +285,7 @@ button:hover {
     border: 3px solid red;
     margin-top: 10px;
     border-radius: 10%;
+    font-family: "Hedvig Letters Serif", serif;
   }
   .art div {
     width: 80%;
