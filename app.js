@@ -76,7 +76,7 @@ function getArtObjectsById(parameter, id) {
 //function to add departments to select
 function addSelectOptions(options) {
   const $departments = $("#departments");
-  const $select = $("<select><option>Please Select Department</option>");
+  const $select = $("<select><option>Select Department</option>");
   $select.on("change", handleSelect);
   $departments.append($select);
   options.forEach((item) => {
@@ -91,7 +91,7 @@ function addSelectOptions(options) {
 function displayArtObject(options) {
   const $maincontainer = $("#maincontainer");
   const $artObjects = $("<div>").addClass("artObjects");
-  $("#header div").css("display", "flex");
+  $("#header div").css("display", "block");
   $maincontainer.append($artObjects);
   for (var key in options) {
     if (options[key] == "") {

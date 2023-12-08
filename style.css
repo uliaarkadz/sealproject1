@@ -1,77 +1,65 @@
 #main {
-  max-width: 100%;
   display: flex;
   flex-direction: column;
   font-family: "DM Sans", sans-serif;
-  align-items: center;
 }
+
 #top {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#mainImage {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-#mainImage img {
-  display: block;
+
+img {
   max-width: 100%;
-  height: auto;
-  float: bottom;
-  margin-top: 20px;
-  margin-bottom: 0px;
-  object-position: bottom;
+  max-height: 100%;
 }
+
 .form {
   display: flex;
   justify-content: center;
-  width: 100%;
 }
+
 #maincontainer {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
 }
+
 #searchoptions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-evenly;
-  position: relative;
-  bottom: 220px;
 }
+
 #searchoptions button {
-  width: 40vw;
+  width: 25vw;
   padding: 0.8rem;
   margin: 0.8rem;
   background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
   color: red;
-  text-shadow: 1px 3px 2px black;
+  text-shadow: 1px 3px 2px white;
   font-size: 40px;
   border: 3px double red;
   text-transform: uppercase;
 }
+
 #search {
   display: none;
   justify-content: center;
 }
+
 select {
   width: 30rem;
   padding: 1rem;
   margin: 1rem;
   background-color: red;
-  border: 3px double red;
+  border: 3px double white;
   color: white;
   text-align: center;
   background-color: transparent;
 }
+
 input {
   width: 30rem;
   padding: 1rem;
@@ -79,9 +67,10 @@ input {
   color: white;
   text-align: center;
   background-color: red;
-  border: 3px double red;
+  border: 3px double white;
   background-color: transparent;
 }
+
 #search button {
   width: 5rem;
   height: 3rem;
@@ -90,7 +79,10 @@ input {
   text-align: center;
   background-color: red;
   border: 3px double red;
-  background-color: transparent;
+}
+
+.form {
+  background-color: red;
 }
 
 #departments {
@@ -100,15 +92,15 @@ input {
 .art {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .art div {
-  text-align: left;
+  margin: 1px;
   padding: 1rem;
   width: 33%;
   background-color: lightgray;
-  border: 1px dotted red;
+  border: 1px solid red;
   text-transform: uppercase;
   text-align: center;
 }
@@ -116,47 +108,72 @@ input {
 body {
   background-color: lightgray;
 }
+
 #header div {
   display: none;
   text-align: center;
   flex-direction: row;
   justify-content: space-between;
+  background-color: red;
+}
+
+#header {
+  margin-top: 10px;
+  text-align: center;
 }
 
 .title:hover {
   color: burlywood;
   background-color: red;
+  cursor: pointer;
+}
+#searchButton:hover {
+  color: burlywood;
+  background-color: white;
+  color: red;
+  cursor: pointer;
+}
+#searchButton button:hover {
+  color: burlywood;
+  color: white;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 10; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  border: 1px solid red;
+  width: 80%;
+  align-items: center;
+  text-align: center;
 }
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: red;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  padding-right: 20px;
 }
 
 .close:hover,
@@ -164,4 +181,117 @@ body {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #searchoptions button {
+    width: 70vw;
+    padding: 0.8rem;
+    margin: 0.8rem;
+    background-color: transparent;
+    text-shadow: 1px 1px 2px white;
+    font-size: 20px;
+    border: 3px double red;
+    text-transform: uppercase;
+  }
+
+  #searchoptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    bottom: 0px;
+  }
+
+  #main {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: "DM Sans", sans-serif;
+    align-items: center;
+  }
+
+  .form {
+    background-color: lightgray;
+  }
+
+  #search {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+  }
+
+  select {
+    width: 70vw;
+    padding: 1rem;
+    margin: 1rem;
+    border: 3px double red;
+    color: red;
+    text-align: center;
+    background-color: transparent;
+    font-size: larger;
+  }
+
+  input {
+    width: 70vw;
+    padding: 1rem;
+    margin: 1rem;
+    color: white;
+    text-align: center;
+    border: 3px double red;
+    background-color: transparent;
+  }
+  #search button {
+    width: 5rem;
+    height: 3rem;
+    margin: 1rem;
+    color: red;
+    text-align: center;
+    background-color: red;
+    border: 3px double red;
+    background-color: transparent;
+  }
+  .maincontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .artObjects {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .art {
+    width: 100%;
+    display: flex;
+    height: 60vw;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid red;
+    margin-top: 10px;
+    border-radius: 10%;
+  }
+  .art div {
+    width: 80%;
+    padding: 0;
+    background-color: lightgray;
+    text-transform: uppercase;
+    text-align: center;
+    border: none;
+  }
+  .art .title {
+    border-bottom: 3px solid darkgrey;
+  }
+  #header {
+    display: none;
+  }
+  .artwork img {
+    width: 80%;
+  }
 }
