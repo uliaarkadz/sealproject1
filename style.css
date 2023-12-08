@@ -1,69 +1,167 @@
+#main {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  align-items: center;
+}
+#top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#mainImage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+#mainImage img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  float: bottom;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  object-position: bottom;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+#maincontainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
 #searchoptions {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
+  position: relative;
+  bottom: 220px;
 }
 #searchoptions button {
-  width: 30rem;
-  background-color: aquamarine;
-  padding: 1rem;
-  margin: 1rem;
+  width: 40vw;
+  padding: 0.8rem;
+  margin: 0.8rem;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: red;
+  text-shadow: 1px 3px 2px black;
+  font-size: 40px;
+  border: 3px double red;
+  text-transform: uppercase;
 }
 #search {
   display: none;
   justify-content: center;
-  border: 2px solid yellow;
 }
 select {
   width: 30rem;
   padding: 1rem;
   margin: 1rem;
-  border: 2px solid blue;
+  background-color: red;
+  border: 3px double red;
+  color: white;
+  text-align: center;
+  background-color: transparent;
 }
 input {
   width: 30rem;
   padding: 1rem;
   margin: 1rem;
-  border: 2px solid blue;
+  color: white;
+  text-align: center;
+  background-color: red;
+  border: 3px double red;
+  background-color: transparent;
 }
 #search button {
   width: 5rem;
   height: 3rem;
   margin: 1rem;
-}
-
-div {
-  border: 1px solid violet;
+  color: white;
+  text-align: center;
+  background-color: red;
+  border: 3px double red;
+  background-color: transparent;
 }
 
 #departments {
   display: none;
   justify-content: center;
-  border: 2px solid pink;
 }
 .art {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .art div {
-  width: 500px;
   text-align: left;
   padding: 1rem;
+  width: 33%;
+  background-color: lightgray;
+  border: 1px dotted red;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 body {
-  background-color: bisque;
+  background-color: lightgray;
 }
 #header div {
   display: none;
   text-align: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-#objectContainer {
-  display: none;
-}
 .title:hover {
   color: burlywood;
+  background-color: red;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

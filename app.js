@@ -26,7 +26,7 @@ function getArtIdsByDepartment(parameter, departmentId) {
     })
     .then((data) => {
       const arr = data.objectIDs;
-      const slicedArray = arr.slice(0, 50);
+      const slicedArray = arr.slice(0, 10);
       slicedArray.forEach((i) => {
         return fetch(`${baseURL}objects/${i}`)
           .then((res) => {
@@ -55,7 +55,6 @@ function getArtObjectsBySearch(parameter, search) {
             return res.json();
           })
           .then((data) => {
-            debugger;
             displayArtObject(data);
           });
       });
@@ -91,8 +90,8 @@ function addSelectOptions(options) {
 //function to display art object by department
 function displayArtObject(options) {
   const $maincontainer = $("#maincontainer");
-  $("#header div").css("display", "inline");
   const $artObjects = $("<div>").addClass("artObjects");
+  $("#header div").css("display", "flex");
   $maincontainer.append($artObjects);
   for (var key in options) {
     if (options[key] == "") {
@@ -104,7 +103,6 @@ function displayArtObject(options) {
     <div class=title id=${options.objectID}>${options.title} </div>
     <div>${options.artistDisplayName} </div>
     <div>${options.objectBeginDate}</div>
-    <div>Details</div>
     </div>`
   );
 
@@ -115,7 +113,7 @@ function displayArtObject(options) {
 
 //function to display art object full info
 function displayArtObjectFull(options) {
-  const $objectContainer = $("#objectContainer");
+  const $objectContainer = $("#modalContent");
   const $artObject = $("<div>").addClass("artObjectFull");
   $objectContainer.append($artObject);
   for (var key in options) {
@@ -137,9 +135,6 @@ function displayArtObjectFull(options) {
 
 //MAIN CODE
 getDepartments("departments");
-//getArtObjectsById("objects", 436524);
-
-//getArtObjectsBySearch("search", "sunflowers");
 
 // function to handle the select
 function handleSelect(event) {
@@ -166,21 +161,23 @@ function handleSubmit(event) {
   //create form data obj to access form data
   const formData = new FormData(form);
   //grab the serach param
-  const search = formData.get("search");
+  let search;
+  if ($(".artObjects").length == 0) {
+    search = formData.get("search");
+  } else {
+    $(".artObjects").remove();
+    $("#header div").css("display", "none");
+    search = formData.get("search");
+  }
   //fetch the search results
   getArtObjectsBySearch("search", search);
 }
 
 //function to handle object display
 function openObjectModal(event) {
-  if ($("#objectContainer").css("display") === "none") {
+  if ($(".modal").css("display") === "none") {
     getArtObjectsById("objects", event.target.id);
-    $("#objectContainer").css("display", "inline");
-  } else if ($("#objectContainer").css("display") === "inline") {
-    $(".artObjectFull").remove();
-    $("#objectContainer").css("display", "none");
-    getArtObjectsById("objects", event.target.id);
-    $("#objectContainer").css("display", "inline");
+    $("#myModal").css("display", "block");
   }
 }
 
@@ -207,9 +204,30 @@ function showSearchInput() {
     $("#header div").css("display", "none");
   }
 }
+//function handle close modal
+function closeMOdal(event) {
+  $("#myModal").css("display", "none");
+  $(".artObjectFull").remove();
+}
+// When the user clicks anywhere outside of the modal, close it
+function closeModalWhenClickedAnywhere(event) {
+  if ($(event.target) == $("#myModal")) {
+    $("#myModal").css("display", "none");
+    $(".artObjectFull").remove();
+  }
+}
 
 document.querySelector("form").addEventListener("submit", handleSubmit);
+
 document
   .querySelector("#searchart")
   .addEventListener("click", showDepartmentsSelect);
+
 document.querySelector("#find").addEventListener("click", showSearchInput);
+
+// Get the <span> element that closes the modal
+document
+  .getElementsByClassName("close")[0]
+  .addEventListener("click", closeMOdal);
+
+window.addEventListener("click", closeModalWhenClickedAnywhere);

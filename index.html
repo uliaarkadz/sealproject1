@@ -11,42 +11,55 @@
     ></script>
     <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,1000&family=Poiret+One&family=Satisfy&family=Work+Sans&display=swap');
+    </style>
   </head>
   <body>
-    <header>
-      <h1>My Project</h1>
-    </header>
-    <main>
-      <div id="searchoptions">
-        <div><button id="searchart">Look up in our Departments</button></div>
-        <div><button id="find">Find Any Art</button></div>
-      </div>
-      <div class="form">
+    <div id="main">
+      <div id = "top">
+      <div id="mainImage">
+        <img
+          src="https://centaur-wp.s3.eu-central-1.amazonaws.com/designweek/prod/content/uploads/2016/02/20100425/WO_Met_Wired_21816_2.jpg"
+          alt=""
+        /></div>
+        <div id="searchoptions">
+          <div><button id="searchart">Look up in our Departments</button></div>
+          <div><button id="find">Find Any Art</button></div>
+        </div><div class="form">
         <form id="myForm">
-          <div hidden="true" id="departments"></div>
-          <div hidden id="search">
+          <div id="departments"></div>
+          <div id="search">
             <input
               type="text"
               name="search"
               placeholder="type serch parameter"
             />
-            <div><button>Search Art</button></div>
+            <div><button>SEARCH</button></div>
           </div>
         </form>
-        <div id="objectContainer"></div>
-        <div id="maincontainer">
-          <div class="artObjectsHeader">
-            <div class="art" id="header">
-              <div>Title</div>
-              <div>Artist Name</div>
-              <div>Date</div>
-              <div>Details</div>
-            </div>
+      </div>
+      </div>
+      
+      <div id="maincontainer">
+        <div class ="artObjectsHeader">
+          <div class="art" id="header">
+            <div>Title</div>
+            <div>Artist Name</div>
+            <div>Date</div>
           </div>
         </div>
-        <div id="objectContainer"></div>
+        </div>
       </div>
-    </main>
+      <!-- Trigger/Open The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="modalContent"></div>
+        </div>
+      </div>
     <footer></footer>
   </body>
+</div>
 </html>
