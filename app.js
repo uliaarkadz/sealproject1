@@ -239,7 +239,7 @@ function closeMOdal(event) {
 
 // clicks anywhere outside of the modal, close it
 function closeModalWhenClickedAnywhere(event) {
-  if ($(event.target) == $("#myModal")) {
+  if (event.target == document.querySelector("#myModal")) {
     $("#myModal").css("display", "none");
     $(".artObjectFull").remove();
   }
