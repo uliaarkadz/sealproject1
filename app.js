@@ -76,7 +76,7 @@ function getArtObjectsById(parameter, id) {
 //function to add departments to select
 function addSelectOptions(options) {
   const $departments = $("#departments");
-  const $select = $("<select><option>Select Department</option>");
+  const $select = $("<select><option value=default>Select Department</option>");
   $select.on("change", handleSelect);
   $departments.append($select);
   options.forEach((item) => {
@@ -93,11 +93,11 @@ function displayArtObject(options) {
   const $artObjects = $("<div>").addClass("artObjects");
   $("#header div").css("display", "block");
   $maincontainer.append($artObjects);
-  for (var key in options) {
-    if (options[key] == "") {
-      options[key] = "not availabele";
-    }
-  }
+
+  //handle properties w/o values
+  handlleEmptyValues(options);
+
+  //add returned data in the form of table
   $artObjects.append(
     `<div class=art>
     <div class=title id=${options.objectID}>${options.title} </div>
@@ -105,7 +105,7 @@ function displayArtObject(options) {
     <div>${options.objectBeginDate}</div>
     </div>`
   );
-
+  //listener for clciking on any title in the table to display modal with details
   [...document.querySelectorAll(".title")].forEach(function (item) {
     item.addEventListener("click", openObjectModal);
   });
@@ -116,11 +116,11 @@ function displayArtObjectFull(options) {
   const $objectContainer = $("#modalContent");
   const $artObject = $("<div>").addClass("artObjectFull");
   $objectContainer.append($artObject);
-  for (var key in options) {
-    if (options[key] == "" || options[key] == null) {
-      options[key] = "not availabele";
-    }
-  }
+
+  //handle properties w/o values
+  handlleEmptyValues(options);
+
+  //display detailed object content
   $artObject.append(
     `<div class=artwork id=${options.objectID}>
       <div> ${options.title}</div>
@@ -133,13 +133,26 @@ function displayArtObjectFull(options) {
   );
 }
 
+//handle properties w/o values
+function handlleEmptyValues(options) {
+  for (var key in options) {
+    if (options[key] == "" || options[key] == null) {
+      options[key] = "unknown";
+    }
+  }
+}
+
 //MAIN CODE
+
+//load deprtments
 getDepartments("departments");
 
 // function to handle the select
 function handleSelect(event) {
   //get current select values
   let currentValue;
+
+  //check if the objects are displayed if yes - clear the data and elements first
   if ($(".artObjects").length == 0) {
     currentValue = event.target.value;
   } else {
@@ -160,7 +173,9 @@ function handleSubmit(event) {
   const form = event.target;
   //create form data obj to access form data
   const formData = new FormData(form);
-  //grab the serach param
+
+  //grab the search param
+  //check if the objects are displayed if yes - clear the data and elements first
   let search;
   if ($(".artObjects").length == 0) {
     search = formData.get("search");
@@ -169,11 +184,12 @@ function handleSubmit(event) {
     $("#header div").css("display", "none");
     search = formData.get("search");
   }
+
   //fetch the search results
   getArtObjectsBySearch("search", search);
 }
 
-//function to handle object display
+//function to handle object display in modal
 function openObjectModal(event) {
   if ($(".modal").css("display") === "none") {
     getArtObjectsById("objects", event.target.id);
@@ -181,35 +197,47 @@ function openObjectModal(event) {
   }
 }
 
+//hide or show departments select
 function showDepartmentsSelect() {
   if ($(".artObjects").length == 0) {
     $("#departments").css("display", "flex");
     $("#search").css("display", "none");
+    $("select").val("default");
+    $("#info").css("display", "none");
   } else {
     $(".artObjects").remove();
     $("#departments").css("display", "flex");
     $("#search").css("display", "none");
     $("#header div").css("display", "none");
+    $("input").val("");
+    $("select").val("default");
   }
 }
 
+//hide or show serach input
 function showSearchInput() {
   if ($(".artObjects").length == 0) {
+    $("input").val("");
     $("#search").css("display", "flex");
     $("#departments").css("display", "none");
+    $("#info").css("display", "none");
   } else {
     $(".artObjects").remove();
     $("#search").css("display", "flex");
     $("#departments").css("display", "none");
     $("#header div").css("display", "none");
+    $("select").val("0");
+    $("input").val("");
   }
 }
+
 //function handle close modal
 function closeMOdal(event) {
   $("#myModal").css("display", "none");
   $(".artObjectFull").remove();
 }
-// When the user clicks anywhere outside of the modal, close it
+
+// clicks anywhere outside of the modal, close it
 function closeModalWhenClickedAnywhere(event) {
   if ($(event.target) == $("#myModal")) {
     $("#myModal").css("display", "none");
@@ -217,12 +245,15 @@ function closeModalWhenClickedAnywhere(event) {
   }
 }
 
+//listen when user submits form
 document.querySelector("form").addEventListener("submit", handleSubmit);
 
+//show departnments select
 document
   .querySelector("#searchart")
   .addEventListener("click", showDepartmentsSelect);
 
+//show search input
 document.querySelector("#find").addEventListener("click", showSearchInput);
 
 // Get the <span> element that closes the modal
@@ -230,4 +261,5 @@ document
   .getElementsByClassName("close")[0]
   .addEventListener("click", closeMOdal);
 
+//close modal
 window.addEventListener("click", closeModalWhenClickedAnywhere);
